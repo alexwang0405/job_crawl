@@ -16,8 +16,10 @@ while True:
         response = requests.get(url.format(page), headers=header).json()
     except requests.JSONDecodeError as e:
         print(e)
+        break
     except:
         print('異常錯誤')
+        break
     else:
         data_list = response['data']['list']
         if not data_list:
