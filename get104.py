@@ -26,14 +26,20 @@ while True:
             break
         else:
             for row in data_list:
+                
+                link = row['link']['job']
+                if link[0] == '/':
+                    link = f"https:{row['link']['job']}"
+
                 all_job.append({
-                    'job_link': row['link']['job'],
+                    'job_link': link,
                     'job_name': row['jobName'],
                     'job_addr': f"{row['jobAddrNoDesc']}{row['jobAddress']}",
                     'company_name': row['custName'],
                     'salary': row['salaryDesc'],
                     'education': row['optionEdu'],
                     'work_experience': row['periodDesc'],
+                    'web_id': 1,
                 })
     page += 1
     

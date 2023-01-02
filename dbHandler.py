@@ -33,13 +33,13 @@ class DBHandler:
             elif 'work_experience' not in row:
                 raise Exception('無經歷')
 
-            if self.is_duplicated(row['job_name'], row['company_name']):
+            if self.is_duplicated(row['job_name'], row['company_name'], row['web_id']):
                 print('資料重複')
                 continue
 
             sql = f"""
-            insert into {config['TABLE_NAME']} (job_link, job_name, job_addr, company_name, salary, education, work_experience)
-            values (%s, %s, %s, %s, %s, %s, %s)
+            insert into {config['TABLE_NAME']} (job_link, job_name, job_addr, company_name, salary, education, work_experience, web_id)
+            values (%s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             self.cursor.execute(sql, (
@@ -49,15 +49,16 @@ class DBHandler:
                 row['company_name'], 
                 row['salary'], 
                 row['education'], 
-                row['work_experience']
+                row['work_experience'],
+                row['web_id'],
             ))
             self.conn.commit()
             print('success')
         return 'finish'
 
-    def is_duplicated(self, job_name, company_name):
-        sql = f"select * from {config['TABLE_NAME']} where job_name=%s and company_name=%s"
-        self.cursor.execute(sql, (job_name, company_name))
+    def is_duplicated(self, job_name, company_name, web_id):
+        sql = f"select * from {config['TABLE_NAME']} where job_name=%s and company_name=%s and web_id=%s"
+        self.cursor.execute(sql, (job_name, company_name, web_id))
         return self.cursor.rowcount != 0
 
     def close(self):
@@ -76,7 +77,8 @@ if __name__ == '__main__':
         'company_name': '詩嫚特集團_斯曼特企業股份有限公司', 
         'salary': '待遇面議',
         'education': '大學',
-        'work_experience': ''
+        'work_experience': '',
+        'web_id': 1
     }]))
 
     dbHandler.close()

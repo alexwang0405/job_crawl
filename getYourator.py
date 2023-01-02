@@ -30,6 +30,7 @@ while True:
                     'salary': row['salary'],
                     'education': '請至連結頁面查詢',
                     'work_experience': '請至連結頁面查詢',
+                    'web_id': 2,
                 })
     page += 1
     
