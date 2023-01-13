@@ -38,8 +38,8 @@ class DBHandler:
                 continue
 
             sql = f"""
-            insert into {config['TABLE_NAME']} (job_link, job_name, job_addr, company_name, salary, education, work_experience, web_id)
-            values (%s, %s, %s, %s, %s, %s, %s, %s)
+            insert into {config['TABLE_NAME']} (job_link, job_name, job_addr, company_name, salary, education, work_experience, web_id, update_time)
+            values (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             self.cursor.execute(sql, (
@@ -51,6 +51,7 @@ class DBHandler:
                 row['education'], 
                 row['work_experience'],
                 row['web_id'],
+                row['update_time'],
             ))
             self.conn.commit()
             print('success')
@@ -67,18 +68,20 @@ class DBHandler:
 
 
 if __name__ == '__main__':
+    import datetime
 
     dbHandler = DBHandler()
 
     print(dbHandler.write([{
-        'job_link': '//www.104.com.tw/job/7fywv?jobsource=jolist_d_relevance', 
-        'job_name': '後端工程師(Python)', 
-        'job_addr': '台北市松山區民權路3段178號15樓 | 詩嫚特集團_斯曼特企業股份有限公司', 
-        'company_name': '詩嫚特集團_斯曼特企業股份有限公司', 
+        'job_link': 'https://www.104.com.tw/job/6l6c7?jobsource=hotjob_chr', 
+        'job_name': 'Integration manager [串接專案管理師]', 
+        'job_addr': '台北市大安區復興南路一段', 
+        'company_name': '藍窗科技有限公司', 
         'salary': '待遇面議',
-        'education': '大學',
-        'work_experience': '',
-        'web_id': 1
+        'education': '專科',
+        'work_experience': '1年以上',
+        'web_id': 1,
+        'update_time': datetime.datetime.now()
     }]))
 
     dbHandler.close()

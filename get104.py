@@ -1,5 +1,6 @@
 import requests
 from dbHandler import DBHandler
+import datetime
 
 url = 'https://www.104.com.tw/jobs/search/list?ro=0&isnew=0&kwop=7&keyword=python&expansionType=area%2Cspec%2Ccom%2Cjob%2Cwf%2Cwktm&order=15&asc=0&page={}&mode=s&jobsource=2018indexpoc&langFlag=0&langStatus=0&recommendJob=1&hotJob=1'
 
@@ -40,6 +41,7 @@ while True:
                     'education': row['optionEdu'],
                     'work_experience': row['periodDesc'],
                     'web_id': 1,
+                    'update_time': datetime.datetime.now(),
                 })
     page += 1
     

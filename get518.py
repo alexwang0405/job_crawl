@@ -1,6 +1,7 @@
 import requests
 import re
 from dbHandler import DBHandler
+import datetime
 
 
 url = 'https://www.518.com.tw/job-index.html?ad=python&al=2'
@@ -43,6 +44,7 @@ else:
             'education': education,
             'work_experience': work_experience,
             'web_id': 3,
+            'update_time': datetime.datetime.now()
         })
         
 

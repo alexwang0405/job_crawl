@@ -1,5 +1,6 @@
 import requests
 from dbHandler import DBHandler
+import datetime
 
 DOMAIN = 'https://www.yourator.co'
 url = 'https://www.yourator.co/api/v2/jobs?term[]=python&sort=recent_updated&page={}'
@@ -31,6 +32,7 @@ while True:
                     'education': '請至連結頁面查詢',
                     'work_experience': '請至連結頁面查詢',
                     'web_id': 2,
+                    'update_time': datetime.datetime.now()
                 })
     page += 1
     
